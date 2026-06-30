@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">FinPilot AI 工作流程</text>
+  
+  <!-- Step 1 -->
+  <rect x="30" y="70" width="120" height="60" rx="8" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="2"/>
+  <text x="90" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">1. 用户输入</text>
+  <text x="90" y="115" text-anchor="middle" font-size="10" fill="#64748b">提问/搜索</text>
+  
+  <!-- Arrow -->
+  <line x1="150" y1="100" x2="180" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Step 2 -->
+  <rect x="190" y="70" width="120" height="60" rx="8" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="250" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">2. 意图识别</text>
+  <text x="250" y="115" text-anchor="middle" font-size="10" fill="#64748b">AI 分析意图</text>
+  
+  <!-- Arrow -->
+  <line x1="310" y1="100" x2="340" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Step 3 -->
+  <rect x="350" y="70" width="120" height="60" rx="8" fill="#f59e0b" opacity="0.1" stroke="#f59e0b" stroke-width="2"/>
+  <text x="410" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">3. 任务规划</text>
+  <text x="410" y="115" text-anchor="middle" font-size="10" fill="#64748b">分解子任务</text>
+  
+  <!-- Arrow -->
+  <line x1="470" y1="100" x2="500" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Step 4 -->
+  <rect x="510" y="70" width="120" height="60" rx="8" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="2"/>
+  <text x="570" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">4. Agent 调度</text>
+  <text x="570" y="115" text-anchor="middle" font-size="10" fill="#64748b">分配专家</text>
+  
+  <!-- Arrow -->
+  <line x1="630" y1="100" x2="660" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Step 5 -->
+  <rect x="670" y="70" width="110" height="60" rx="8" fill="#ef4444" opacity="0.1" stroke="#ef4444" stroke-width="2"/>
+  <text x="725" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">5. 结果输出</text>
+  <text x="725" y="115" text-anchor="middle" font-size="10" fill="#64748b">返回用户</text>
+  
+  <!-- Detail -->
+  <rect x="50" y="180" width="700" height="180" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="400" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">Agent 协作详情</text>
+  
+  <!-- Learning Expert -->
+  <rect x="80" y="230" width="140" height="100" rx="6" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  <text x="150" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">学习专家</text>
+  <text x="150" y="270" text-anchor="middle" font-size="9" fill="#64748b">知识点讲解</text>
+  <text x="150" y="285" text-anchor="middle" font-size="9" fill="#64748b">课程辅导</text>
+  <text x="150" y="300" text-anchor="middle" font-size="9" fill="#64748b">考试准备</text>
+  
+  <!-- Research Expert -->
+  <rect x="240" y="230" width="140" height="100" rx="6" fill="#10b981" opacity="0.1" stroke="#10b981" stroke-width="1"/>
+  <text x="310" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">研究专家</text>
+  <text x="310" y="270" text-anchor="middle" font-size="9" fill="#64748b">股票分析</text>
+  <text x="310" y="285" text-anchor="middle" font-size="9" fill="#64748b">研报生成</text>
+  <text x="310" y="300" text-anchor="middle" font-size="9" fill="#64748b">投资建议</text>
+  
+  <!-- Knowledge Expert -->
+  <rect x="400" y="230" width="140" height="100" rx="6" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="470" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">知识专家</text>
+  <text x="470" y="270" text-anchor="middle" font-size="9" fill="#64748b">文档检索</text>
+  <text x="470" y="285" text-anchor="middle" font-size="9" fill="#64748b">RAG 查询</text>
+  <text x="470" y="300" text-anchor="middle" font-size="9" fill="#64748b">知识总结</text>
+  
+  <!-- Report Expert -->
+  <rect x="560" y="230" width="140" height="100" rx="6" fill="#f59e0b" opacity="0.1" stroke="#f59e0b" stroke-width="1"/>
+  <text x="630" y="250" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">报告专家</text>
+  <text x="630" y="270" text-anchor="middle" font-size="9" fill="#64748b">报告生成</text>
+  <text x="630" y="285" text-anchor="middle" font-size="9" fill="#64748b">格式优化</text>
+  <text x="630" y="300" text-anchor="middle" font-size="9" fill="#64748b">数据可视化</text>
+  
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+</svg>
