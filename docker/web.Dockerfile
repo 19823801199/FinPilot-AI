@@ -1,5 +1,5 @@
 # FinPilot AI - Frontend Dockerfile
-# Next.js 16 + React 19 + TailwindCSS v4
+# Next.js 15 + React 18 + TailwindCSS v4 (Static Export)
 
 FROM node:20-alpine AS base
 
@@ -8,11 +8,11 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies using npm mirror for China
+# Install dependencies
 COPY apps/web/package.json ./
 RUN npm install --registry https://registry.npmmirror.com
 
-# Build the application
+# Build the application (static export to dist/)
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
@@ -23,25 +23,22 @@ ENV NODE_ENV=production
 
 RUN npm run build
 
-# Production image
-FROM base AS runner
-WORKDIR /app
+# Production image - serve static files with Nginx
+FROM nginx:alpine AS runner
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
+# Nginx config for SPA routing
+RUN echo 'server { \
+    listen 3000; \
+    location / { \
+        root /usr/share/nginx/html; \
+        index index.html; \
+        try_files $uri $uri/ /index.html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 3000
 
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]
