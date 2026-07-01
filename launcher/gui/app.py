@@ -781,7 +781,7 @@ class FinPilotLauncher:
         try:
             proc = subprocess.Popen(
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                cwd=cwd, shell=False, bufsize=1,
+                cwd=cwd, shell=True, bufsize=1,
             )
 
             def _reader():
@@ -840,7 +840,7 @@ class FinPilotLauncher:
         try:
             self.backend_proc = subprocess.Popen(
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                cwd=API_DIR, shell=False, bufsize=1,
+                cwd=API_DIR, shell=True, bufsize=1,
             )
             self.backend_pid = self.backend_proc.pid
             self._log("INFO", f"后端进程已启动, PID={self.backend_pid}")
@@ -887,7 +887,7 @@ class FinPilotLauncher:
         try:
             self.frontend_proc = subprocess.Popen(
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                cwd=WEB_DIR, shell=False, bufsize=1,
+                cwd=WEB_DIR, shell=True, bufsize=1,
             )
             self.frontend_pid = self.frontend_proc.pid
             self._log("INFO", f"前端进程已启动, PID={self.frontend_pid}")
