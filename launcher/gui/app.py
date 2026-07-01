@@ -635,9 +635,24 @@ class FinPilotLauncher:
                 self._release_port(port)
 
         # [3/7] 安装依赖
+        # 检查 .install.lock 但同时验证关键文件是否存在
+        need_install = True
         if os.path.isfile(INSTALL_LOCK):
-            self._log("INFO", "[3/7] 检测到 .install.lock，跳过依赖安装")
-        else:
+            # 验证前端 next 命令是否存在
+            if IS_WINDOWS:
+                next_bin = os.path.join(WEB_DIR, "node_modules", ".bin", "next.cmd")
+            else:
+                next_bin = os.path.join(WEB_DIR, "node_modules", ".bin", "next")
+            if os.path.isfile(next_bin) and os.path.isdir(os.path.join(WEB_DIR, "node_modules")):
+                self._log("INFO", "[3/7] 检测到 .install.lock，跳过依赖安装")
+                need_install = False
+            else:
+                self._log("WARN", "[3/7] .install.lock 存在但依赖不完整，重新安装")
+                try:
+                    os.remove(INSTALL_LOCK)
+                except Exception:
+                    pass
+        if need_install:
             self._log("INFO", "[3/7] 安装后端依赖...")
             self._install_backend_deps()
             self._log("INFO", "[3/7] 安装前端依赖...")
@@ -874,8 +889,20 @@ class FinPilotLauncher:
 
     def _start_frontend(self):
         """启动前端 npm run dev"""
-        cmd = ["npm", "run", "dev"]
-        self._log("INFO", f"启动命令: {' '.join(cmd)}")
+        # 使用 npx next dev 而非 npm run dev，避免 PATH 问题
+        if IS_WINDOWS:
+            next_cmd = os.path.join(WEB_DIR, "node_modules", ".bin", "next.cmd")
+            if not os.path.isfile(next_cmd):
+                next_cmd = "npx next dev"
+            else:
+                next_cmd = f'"{next_cmd}" dev'
+        else:
+            next_cmd = os.path.join(WEB_DIR, "node_modules", ".bin", "next")
+            if not os.path.isfile(next_cmd):
+                next_cmd = "npx next dev"
+            else:
+                next_cmd = f"{next_cmd} dev"
+        self._log("INFO", f"启动命令: {next_cmd}")
 
         log_fh = None
         try:
@@ -886,7 +913,7 @@ class FinPilotLauncher:
 
         try:
             self.frontend_proc = subprocess.Popen(
-                cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                next_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 cwd=WEB_DIR, shell=True, bufsize=1,
             )
             self.frontend_pid = self.frontend_proc.pid
