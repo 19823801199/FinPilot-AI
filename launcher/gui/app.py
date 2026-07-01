@@ -105,12 +105,15 @@ def _log(level, msg):
 def _run_cmd(cmd, cwd=None):
     """运行命令并返回 (returncode, stdout, stderr)"""
     try:
-        is_shell = isinstance(cmd, str)
+        # Windows 上 npm/pip 等实际是 .cmd 脚本，必须用 shell=True 才能找到
+        # 统一使用 shell=True，兼容所有平台
+        if isinstance(cmd, list):
+            cmd = " ".join(str(c) for c in cmd)
         kwargs = {
             "stdout": subprocess.PIPE,
             "stderr": subprocess.PIPE,
             "cwd": cwd,
-            "shell": is_shell,
+            "shell": True,
         }
         if IS_WINDOWS:
             kwargs["creationflags"] = subprocess.CREATE_NO_WINDOW
