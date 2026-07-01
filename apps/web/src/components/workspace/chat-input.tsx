@@ -6,7 +6,35 @@ import { cn } from "@/lib/utils";
 import { useWorkspaceStore } from "@/store/workspace-store";
 import { useMessageStore } from "@/store/message-store";
 import { useConversationStore } from "@/store/conversation-store";
-import { classifyUserInput, generateMockWorkflowSteps } from "@/lib/mock-chat";
+
+/** 意图分类（替代已删除的 mock-chat 模块） */
+function classifyUserInput(input: string): string {
+  const text = input.toLowerCase();
+  if (/股票|股价|行情|k线|研报|分析.*股|上市/.test(text)) return "stock_analysis";
+  if (/学习|课程|考点|练习|错题|复习/.test(text)) return "learning";
+  if (/文档|上传|知识库|检索|rag/.test(text)) return "knowledge_rag";
+  return "general_chat";
+}
+
+/** 生成 Mock 工作流步骤 */
+function generateMockWorkflowSteps(taskType: string) {
+  const steps = [
+    { id: "step-1", description: "意图识别与任务规划", agent: "orchestrator" },
+    { id: "step-2", description: "检索相关数据", agent: "research_analyst" },
+    { id: "step-3", description: "AI 分析与推理", agent: "learning_mentor" },
+    { id: "step-4", description: "生成结构化报告", agent: "report_writer" },
+  ];
+  if (taskType === "stock_analysis") {
+    steps[1].description = "获取股票行情数据";
+    steps[2].description = "基本面与技术面分析";
+    steps[3].description = "生成投资分析报告";
+  } else if (taskType === "knowledge_rag") {
+    steps[1].description = "向量检索相关文档";
+    steps[2].description = "上下文组装与推理";
+    steps[3].description = "生成问答结果并标注来源";
+  }
+  return steps;
+}
 
 export function ChatInput() {
   const [input, setInput] = useState("");
