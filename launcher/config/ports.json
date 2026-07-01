@@ -1,0 +1,20 @@
+{
+  "frontend": {
+    "default_port": 3000,
+    "alt_ports": [3001, 3002, 3003]
+  },
+  "backend": {
+    "default_port": 8000,
+    "alt_ports": [8001, 8002, 8003]
+  },
+  "health_endpoints": {
+    "backend": "/api/v1/health",
+    "frontend": "/"
+  },
+  "timeouts": {
+    "health_check_seconds": 30,
+    "process_start_seconds": 5,
+    "npm_install_seconds": 300,
+    "pip_install_seconds": 300
+  }
+}
